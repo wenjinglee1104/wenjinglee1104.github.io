@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | How to reengineer a word by Java" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | How to reengineer a word by Java
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E6%97%A0%E4%B8%AD%E7%94%9F%E6%9C%89"><span class="post-toc-text">无中生有</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84Word"><span class="post-toc-text">基于模板生成新的Word</span></a></li></ol>
+        
+        <p>今天遇到了一个task，是生成Word。在接到这个工作的时候，我在认知上非常懵，写代码无非是CRUD，怎么可以生成创造。所以这个解决这个task的首要问题是认识到Java项目可以创建新的Word文档、处理和修改docx文件。而在实际的工作中，基于单行记录依次生成固定模式的docx是不理想的，属于是一个流程从头到尾跑了很多遍。在项目中，可行的方案是基于模板和数据，不断刷新修改模板生成docx文件。</p>
+<h4 id="无中生有"><a href="#无中生有" class="headerlink" title="无中生有"></a>无中生有</h4><p>创建一个空白的文档并保存为’.docx’文件</p>
+<pre><code class="java">import org.apache.poi.xwpf.usermodel.*;
+
+import java.io.FileOutputStream;
+
+public class CreateWordDocumentExample &#123;
+    public static void main(String[] args) &#123;
+        // 创建一个空白的 Word 文档
+        XWPFDocument document = new XWPFDocument();
+
+        // 创建一个段落
+        XWPFParagraph paragraph = document.createParagraph();
+
+        // 创建一个运行元素（Run），并在段落中添加文本
+        XWPFRun run = paragraph.createRun();
+        run.setText(&quot;Hello, World!&quot;);
+
+        try &#123;
+            // 保存文档为 .docx 文件
+            FileOutputStream out = new FileOutputStream(&quot;output.docx&quot;);
+            document.write(out);
+            out.close();
+
+            System.out.println(&quot;Word 文档创建成功！&quot;);
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="基于模板生成新的Word"><a href="#基于模板生成新的Word" class="headerlink" title="基于模板生成新的Word"></a>基于模板生成新的Word</h4><ul>
+<li><p>创建一个Word模板，并在模板上添加占位符，使用作为占位符的格式</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image20230614pic01.png" alt="img"></p>
+</li>
+<li><p>装 Apache POI 库，这是一个用于处理 Microsoft Office 文档的 Java 库。在项目中添加以下 Maven 依赖项</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi&lt;/artifactId&gt;
+    &lt;version&gt;4.1.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+    &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+    &lt;version&gt;4.1.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+<li><p>使用以下代码来替换模板中的占位符并生成新的 Word 文档</p>
+<pre><code class="java">import org.apache.poi.xwpf.usermodel.*;
+import java.io.*;
+
+public class WordTemplateProcessor &#123;
+    public static void main(String[] args) &#123;
+        String templatePath = &quot;path/to/your/template.docx&quot;;
+        String outputPath = &quot;path/to/output.docx&quot;;
+
+        try &#123;
+            // 加载模板文件
+            FileInputStream fis = new FileInputStream(templatePath);
+            XWPFDocument doc = new XWPFDocument(fis);
+
+            // 替换占位符
+            replacePlaceholder(doc, &quot;&#123;&#123;name&#125;&#125;&quot;, &quot;Fredo&quot;);
+            
+            // 添加更多的替换操作...
+
+            // 保存生成的 Word 文档
+            FileOutputStream fos = new FileOutputStream(outputPath);
+            doc.write(fos);
+            fos.close();
+            doc.close();
+
+            System.out.println(&quot;生成成功！&quot;);
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+
+    private static void replacePlaceholder(XWPFDocument doc, String placeholder, String replacement) &#123;
+        for (XWPFParagraph paragraph : doc.getParagraphs()) &#123;
+            for (XWPFRun run : paragraph.getRuns()) &#123;
+                String text = run.getText(0);
+                if (text != null &amp;&amp; text.contains(placeholder)) &#123;
+                    text = text.replace(placeholder, replacement);
+                    run.setText(text, 0);
+                &#125;
+            &#125;
+        &#125;
+        for (XWPFTable table : doc.getTables()) &#123;
+            for (XWPFTableRow row : table.getRows()) &#123;
+                for (XWPFTableCell cell : row.getTableCells()) &#123;
+                    for (XWPFParagraph paragraph : cell.getParagraphs()) &#123;
+                        for (XWPFRun run : paragraph.getRuns()) &#123;
+                            String text = run.getText(0);
+                            if (text != null &amp;&amp; text.contains(placeholder)) &#123;
+                                text = text.replace(placeholder, replacement);
+                                run.setText(text, 0);
+                            &#125;
+                        &#125;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在代码中，将 <code>templatePath</code> 替换为模板文件的路径，将 <code>outputPath</code> 替换为生成的 Word 文档的路径。然后，使用 <code>replacePlaceholder</code> 方法来替换占位符。</p>
+</li>
+<li><p>运行程序后，它将读取模板文件，替换占位符，并生成一个新的 Word 文档。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image20230614pic02.png" alt="img"></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-06-14</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
