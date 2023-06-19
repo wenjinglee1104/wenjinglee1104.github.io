@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | how to generate QR codes" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | how to generate QR codes
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ZXing"><span class="post-toc-text">ZXing</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%9B%BE%E7%89%87"><span class="post-toc-text">生成二维码图片</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%B9%B6%E6%8F%92%E5%85%A5word"><span class="post-toc-text">生成二维码并插入word</span></a></li></ol></li></ol>
+        
+        <p>工作中遇到的问题是生成二维码并且插入到Word中，所以本文浅浅写一下生成二维码的库和生成的过程。</p>
+<h2 id="ZXing"><a href="#ZXing" class="headerlink" title="ZXing"></a>ZXing</h2><h3 id="生成二维码图片"><a href="#生成二维码图片" class="headerlink" title="生成二维码图片"></a>生成二维码图片</h3><p>Google ZXing（Zebra Crossing）是一个开源的条码和二维码处理库，用于在各种平台上解码和生成条码和二维码。它具有广泛的用途和应用场景，包括但不限于以下几个方面：条码扫描应用、二维码生成和解码、移动支付、电子票务和登机牌、应用下载和推广。</p>
+<pre><code class="java">//导入相应的依赖库
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+//将这段代码放在适当的类文件中，名为QRCodeGenerator.java的文件
+public class QRCodeGenerator &#123;
+
+    public static void main(String[] args) &#123;
+        String text = &quot;Hello, World!&quot;;
+        //修改width和height变量来调整二维码的尺寸
+        int width = 300;
+        int height = 300;
+        //修改format变量来指定保存的图片格式
+        String format = &quot;png&quot;;
+        // 调整白边的宽度
+        int margin = 4;
+        
+
+        Map&lt;EncodeHintType, Object&gt; hints = new HashMap&lt;&gt;();
+        hints.put(EncodeHintType.CHARACTER_SET, &quot;UTF-8&quot;);
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+        try &#123;
+            //创建一个BitMatrix对象并使用MultiFormatWriter类的encode方法生成二维码的位矩阵
+            BitMatrix bitMatrix = new MultiFormatWriter().encode(text,     BarcodeFormat.QR_CODE, width, height, hints);
+
+            // 裁剪掉白边
+            int[] rec = bitMatrix.getEnclosingRectangle();
+            int leftOffset = rec[0] - margin;
+            int topOffset = rec[1] - margin;
+            int newWidth = rec[2] + 2 * margin;
+            int newHeight = rec[3] + 2 * margin;
+            BitMatrix bitMatrixWithMargin = new BitMatrix(newWidth, newHeight);
+            bitMatrixWithMargin.clear();
+            //在新的位矩阵中复制位矩阵的内容
+            for (int i = 0; i &lt; rec[2]; i++) &#123;
+                for (int j = 0; j &lt; rec[3]; j++) &#123;
+                    if (bitMatrix.get(i + leftOffset, j + topOffset)) &#123;
+                        bitMatrixWithMargin.set(i + margin, j + margin);
+                    &#125;
+                &#125;
+            &#125;
+
+            //创建BufferedImage对象，并根据位矩阵的值设置像素颜色
+            BufferedImage image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+            for (int x = 0; x &lt; newWidth; x++) &#123;
+                for (int y = 0; y &lt; newHeight; y++) &#123;
+                    image.setRGB(x, y, bitMatrixWithMargin.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+                &#125;
+            &#125;
+
+            //生成的图片将保存在指定的文件路径中
+            File outputFile = new File(&quot;C:\\Users\\27694\\Desktop\\scarlet.png&quot;);
+            ImageIO.write(image, format, outputFile);
+            System.out.println(&quot;二维码生成成功！&quot;); //如果生成成功，控制台将输出&quot;二维码生成成功！&quot;
+        &#125; catch (Exception e) &#123;
+            System.out.println(&quot;二维码生成失败：&quot; + e.getMessage()); //如果生成失败，将输出&quot;二维码生成失败：&quot;及失败原因
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="生成二维码并插入word"><a href="#生成二维码并插入word" class="headerlink" title="生成二维码并插入word"></a>生成二维码并插入word</h3><pre><code class="java">//方法接收三个参数，一个 XWPDFDocument 对象(Word文档)，一个占位符字符串和一个二维码数据字符串
+public static void insertQRCode(XWPFDocument doc, String placeholder, String qrCodeData) &#123;
+
+        int margin = 1;
+        // 调整白边的宽度
+
+        try &#123;
+            //设置二维码生成的一些参数
+            Hashtable&lt;EncodeHintType, Object&gt; hintMap = new Hashtable&lt;&gt;();
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+            //生成二维码
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            //将数字字符串转换为BitMatrix
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeData, BarcodeFormat.QR_CODE, 80, 80, hintMap);
+
+            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            BufferedImage croppedImage = qrImage.getSubimage(5, 5, 75, 75);//调整白边宽度
+
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ImageIO.write(croppedImage, &quot;png&quot;, out);
+
+            XWPFParagraph paragraph = findParagraphByPlaceholder(doc, placeholder);
+            // 移除段落中的现有运行元素
+            if(paragraph != null) &#123;
+                for (int i = paragraph.getRuns().size() - 1; i &gt;= 0; i--) &#123;
+                    paragraph.removeRun(i);
+                &#125;
+            &#125;
+            XWPFRun run = paragraph.createRun();
+
+
+            run.addPicture(new ByteArrayInputStream(out.toByteArray()), XWPFDocument.PICTURE_TYPE_PNG, &quot;qrcode.png&quot;, Units.toEMU(80), Units.toEMU(80));
+
+            // 设置段落对齐方式为居中
+            paragraph.setAlignment(ParagraphAlignment.CENTER);
+
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+</code></pre>
+<p>在实际项目中，将此类方法放入<code>QRCodeUtils.java</code> 文件中，在项目的其他类中，通过创建 <code>QRCodeUtils</code> 类的对象来调用这些方法。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-06-19</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
