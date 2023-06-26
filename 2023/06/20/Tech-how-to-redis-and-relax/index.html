@@ -95,7 +95,7 @@
 
     <div class="post-md">
         
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis%E6%98%AF%E4%BB%80%E4%B9%88"><span class="post-toc-text">Redis是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="post-toc-text">Redis的下载安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-1"><span class="post-toc-text">Redis的下载安装</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis%E6%98%AF%E4%BB%80%E4%B9%88"><span class="post-toc-text">Redis是什么</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="post-toc-text">Redis的下载安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RedisInsight%E7%9A%84%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="post-toc-text">RedisInsight的下载安装</span></a></li></ol>
         
         <p>在工作中使用redis，在运用的过程中遇到了若干基础问题和使用方法的技巧，在此记录。</p>
 <h2 id="Redis是什么"><a href="#Redis是什么" class="headerlink" title="Redis是什么"></a>Redis是什么</h2><p>在使用中，我误以为这是个类似插件或者Navicate的软件，不需要做什么就可以使用。所以在是什么这个问题上盘旋了一番。</p>
@@ -109,7 +109,16 @@
 <p>打开一个 cmd窗口 使用 cd 命令切换目录到 C:\redis运行:(如把redis路径加入环境变量，省略切换目录)<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306260939123.png"></p>
 <p>原窗口不关闭，另启动一个cmd窗口，切换到redis目录下访问服务端，设置键值对并取出该键值对。</p>
 <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306260939121.png"></p>
-<h2 id="Redis的下载安装-1"><a href="#Redis的下载安装-1" class="headerlink" title="Redis的下载安装"></a>Redis的下载安装</h2>
+<h2 id="RedisInsight的下载安装"><a href="#RedisInsight的下载安装" class="headerlink" title="RedisInsight的下载安装"></a>RedisInsight的下载安装</h2><p>RedisInsight是Redis官方出品的可视化管理工具，可用于设计、开发、优化你的Redis应用。支持深色和浅色两种主题，界面非常炫酷。可支持String、Hash、Set、List、JSON等多种数据类型的管理，同时支持远程使用CLI 功能，功能非常强大。使用教程如<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rickie/p/16634697.html%E3%80%82">https://www.cnblogs.com/rickie/p/16634697.html。</a></p>
+<ul>
+<li><p>安装完成后在主界面选择添加Redis数据库，选择手动添加数据库，输入Redis服务连接信息即可。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306261013559.png"></p>
+</li>
+<li><p>打开连接后即可管理Redis，左侧显示数据库的key列表，右侧显示选择key的对应value 值。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306261013560.png"></p>
+</li>
+</ul>
+
     </div>
 
     <div class="post-meta">
