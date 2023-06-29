@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Q&amp;A | some questions happened on 2023/06/27" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Q&amp;A | some questions happened on 2023/06/27
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Redis%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="post-toc-text">1.Redis的启动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8B%BC%E6%8E%A5"><span class="post-toc-text">2.字符串的拼接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">使用+字符串</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8concat-%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B0%86%E6%8C%87%E5%AE%9A%E5%AD%97%E7%AC%A6%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%9C%AB%E5%B0%BE"><span class="post-toc-text">使用concat()方法，将指定字符连接到末尾</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8StringBuilder%E6%88%96StringBuffer"><span class="post-toc-text">使用StringBuilder或StringBuffer</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8StringJoiner%EF%BC%8C%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9A%E5%88%86%E9%9A%94%E7%AC%A6%E6%8B%BC%E6%8E%A5%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">使用StringJoiner，使用指定分隔符拼接多个字符串</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-spring-mvc%E7%9A%84%E7%BD%91%E5%9D%80%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%EF%BC%9F"><span class="post-toc-text">3.spring mvc的网址如何打开？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-%E6%8A%A5%E9%94%99%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="post-toc-text">4.报错的处理方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-%E5%9C%A8ApiFox%E9%87%8C%E9%9D%A2%E6%8F%90%E4%BE%9B%E5%8F%82%E6%95%B0%E7%9A%84%E9%94%99%E8%AF%AF"><span class="post-toc-text">5.在ApiFox里面提供参数的错误</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-idea%E6%98%BE%E7%A4%BAcannot-resolve-symbol-%E2%80%9Cprintln%E2%80%9D"><span class="post-toc-text">6.idea显示cannot resolve symbol “println”</span></a></li></ol>
+        
+        <h2 id="1-Redis的启动"><a href="#1-Redis的启动" class="headerlink" title="1.Redis的启动"></a>1.Redis的启动</h2><p>在RedisInsight中企图打开本地的redis时遭到了拒绝</p>
+<pre><code class="java">C:\redis&gt;redis-cli.exe -h 127.0.0.1 -p 6379
+Could not connect to Redis at 127.0.0.1:6379: 由于目标计算机积极拒绝，无法连接。
+</code></pre>
+<p>我以为这个像是在做项目时只要连接就可以使用的服务器一样，忘了RedisInsight只是一个做连接的客户端，如果本地不打开服务的话是没办法使用的，所以仍然要定位到redis目录下执行 </p>
+<pre><code class="sql">redis-server.exe redis.windows.conf
+</code></pre>
+<p>redis的图哈哈哈哈哈</p>
+<h2 id="2-字符串的拼接"><a href="#2-字符串的拼接" class="headerlink" title="2.字符串的拼接"></a>2.字符串的拼接</h2><h5 id="使用-字符串"><a href="#使用-字符串" class="headerlink" title="使用+字符串"></a>使用<code>+</code>字符串</h5><pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = &quot;World&quot;;
+String result = str1 + &quot; &quot; + str2; //结果为&quot;Hello World&quot;
+</code></pre>
+<h5 id="使用concat-方法，将指定字符连接到末尾"><a href="#使用concat-方法，将指定字符连接到末尾" class="headerlink" title="使用concat()方法，将指定字符连接到末尾"></a>使用<code>concat()</code>方法，将指定字符连接到末尾</h5><pre><code class="java">String str1 = &quot;Hello&quot;;
+String str2 = &quot;World&quot;;
+String result = str1.concat(&quot; &quot;).concat(str2);//结果为&quot;Hello World&quot;
+</code></pre>
+<h5 id="使用StringBuilder或StringBuffer"><a href="#使用StringBuilder或StringBuffer" class="headerlink" title="使用StringBuilder或StringBuffer"></a>使用<code>StringBuilder</code>或<code>StringBuffer</code></h5><pre><code class="java">StringBuilder sb = new StringBuilder();
+sb.append(&quot;Hello&quot;);
+sb.append(&quot; &quot;);
+sb.append(&quot;World&quot;);
+String result = sb.toString();//结果为&quot;Hello World&quot;
+</code></pre>
+<h5 id="使用StringJoiner，使用指定分隔符拼接多个字符串"><a href="#使用StringJoiner，使用指定分隔符拼接多个字符串" class="headerlink" title="使用StringJoiner，使用指定分隔符拼接多个字符串"></a>使用<code>StringJoiner</code>，使用指定分隔符拼接多个字符串</h5><pre><code class="java">StringJoiner joiner = new StringJoiner(&quot;,&quot;);
+joiner.add(&quot;Apple&quot;);
+joiner.add(&quot;Banana&quot;);
+joiner.add(&quot;Orange&quot;);        
+String result = joiner.toString();//结果为&quot;Apple,Banana,Orange&quot;
+</code></pre>
+<h2 id="3-spring-mvc的网址如何打开？"><a href="#3-spring-mvc的网址如何打开？" class="headerlink" title="3.spring mvc的网址如何打开？"></a>3.spring mvc的网址如何打开？</h2><p>原因是在一个学习项目中我使用swagger打开网址的方式怎么也打不开图示的页面，后来把页面改成doc才生效。具体哪里看出来，我现在竟然忘了，不如从头学一下。Swagger 是一个用于生成、描述和调用 RESTful 接口的 Web 服务。一般网址是</p>
+<p>​                 <code>http://localhost:端口/selfpath/swagger-ui.html</code></p>
+<p>Knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，文档地址是</p>
+<p>​				<code>http://localhost:端口/doc.html</code></p>
+<p>参考文档是：</p>
+<p><code>https://pdai.tech/md/spring/springboot/springboot-x-interface-doc.html</code> </p>
+<p><code> https://tobebetterjavaer.com/gongju/knife4j.html#%E6%95%B4%E5%90%88-knife4j</code></p>
+<h2 id="4-报错的处理方式"><a href="#4-报错的处理方式" class="headerlink" title="4.报错的处理方式"></a>4.报错的处理方式</h2><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291625190.png"></p>
+<p>如图所示，clean and compile maven !!!</p>
+<h2 id="5-在ApiFox里面提供参数的错误"><a href="#5-在ApiFox里面提供参数的错误" class="headerlink" title="5.在ApiFox里面提供参数的错误"></a>5.在ApiFox里面提供参数的错误</h2><p>GET 方法将参数附加在 URL 的查询字符串中，而 POST 方法将参数放在请求的正文中。在 APIFox 中，使用 GET 方法生成的代码会将参数作为 URL 的一部分，而使用 POST 方法生成的代码会将参数作为请求体的一部分。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291622111.png"></p>
+<h2 id="6-idea显示cannot-resolve-symbol-“println”"><a href="#6-idea显示cannot-resolve-symbol-“println”" class="headerlink" title="6.idea显示cannot resolve symbol “println”"></a>6.idea显示cannot resolve symbol “println”</h2><p>是因为没有写在main函数里面</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sunshinegirl168660/article/details/80069573">https://blog.csdn.net/sunshinegirl168660/article/details/80069573</a></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-06-28</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Q-A/'>
+                            Q &amp; A
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
