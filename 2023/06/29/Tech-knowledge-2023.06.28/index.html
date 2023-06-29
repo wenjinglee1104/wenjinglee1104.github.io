@@ -100,11 +100,11 @@
         <ol>
 <li><p>数据库的设计</p>
 <p>在遇到结构较为复杂的数据库时，如层级迭代层级，公司下设有子公司，子公司下设有部门，而不同子公司的情况不同，这些信息如何存储在同一张表里。具体情况具体分析，以此遇到的情况为例进行例子。</p>
-<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\54aae81b12749ff920af141f0f4879c3.png" alt="54aae81b12749ff920af141f0f4879c3"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642337.png" alt="54aae81b12749ff920af141f0f4879c3"></p>
 </li>
 </ol>
 <p>​		在这张表里面，设置有parent_id和parent_ids两个字段，前者存放所属组织，后者存放所属组织       以及所属组织的组织。如下图所示组织中两个字段皆为0的组织为集团，即没有所属。两个字段为”123456789”的组织为集团的一级子公司，因其以上除所属之外并无其他。而在parent_ids除了”123456789”存在其他字符串的组织，通过查找id可以该条数据属于某一级子公司的部门。由此三级关系可以在一张表中呈现。</p>
-<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\aca5a50f7b97b3ef10870cfcd2dff1f7.png" alt="aca5a50f7b97b3ef10870cfcd2dff1f7"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642338.png" alt="aca5a50f7b97b3ef10870cfcd2dff1f7"></p>
 <ol start="2">
 <li><p>项目中数据库的配置</p>
 <pre><code class="java">server:
@@ -134,7 +134,7 @@ sys:
 <ul>
 <li><p>单点登录是什么</p>
 <p>SSO 和我们去迪士尼玩时购买的通票很像，我们只要买一次通票，就可以玩所有游乐场内的设施，而不需要在过山车或者摩天轮那里重新买一次票。在这里，买票就相当于登录认证，游乐场就相当于使用一套 SSO 的公司，各种游乐设施就相当于公司的各个产品。</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/5f986710b03efd89891bfb6ae2f7c780.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642339.png" alt="img"></p>
 </li>
 <li><p>项目中有两个启动项，所以该项目应有两个端运行。第二个启动项按照功能分层，那第一个启动项是做什么的？</p>
 </li>
@@ -142,18 +142,17 @@ sys:
 <pre><code>1.  获取code，login会得到code
     访问http://localhost:19888/oauth2/authorize?response_type=code&amp;client_id=&#123;client_id&#125;&amp;redirect_uri=&#123;redirect_uri&#125;&amp;state=&#123;state&#125;  
 </code></pre>
-<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\386b0f2e6bfa367c78ed2e11bdcd9678.png" alt="386b0f2e6bfa367c78ed2e11bdcd9678"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642334.png" alt="386b0f2e6bfa367c78ed2e11bdcd9678"></p>
 </li>
 </ul>
 <pre><code>2.  获取token，根据grant_type的方式不同决定怎么获取token
     根据回调返回code，post方式调用http://localhost:19888/oauth2/accessToken接口返回token信息 
 </code></pre>
-<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\a6401606c24df9df0250a249745fe993.png" alt="a6401606c24df9df0250a249745fe993"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642336.png" alt="a6401606c24df9df0250a249745fe993"></p>
 <pre><code>3.  获取个人信息  
     根据回调返回code，post方式调用http://localhost:19888/oauth2/accessToken接口返回token信息 
 </code></pre>
-<p>![a6401606c24df9df0250a249745fe993](C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\a6401606c24df9df0250a249745fe993.png</p>
-<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\29d413be3c6a68078c7fcebdded0a13a.png" alt="29d413be3c6a68078c7fcebdded0a13a"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642335.png" alt="a6401606c24df9df0250a249745fe993"></p>
 <ul>
 <li><p>在整体流程上</p>
 <p>启动两个server，一个作为子系统，另一个作为sso-server作为认证中心</p>
