@@ -98,12 +98,11 @@
             
         
         <ol>
-<li><p>数据库的设计</p>
+<li>数据库的设计</li>
+</ol>
 <p>在遇到结构较为复杂的数据库时，如层级迭代层级，公司下设有子公司，子公司下设有部门，而不同子公司的情况不同，这些信息如何存储在同一张表里。具体情况具体分析，以此遇到的情况为例进行例子。</p>
 <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642337.png" alt="54aae81b12749ff920af141f0f4879c3"></p>
-</li>
-</ol>
-<p>​		在这张表里面，设置有parent_id和parent_ids两个字段，前者存放所属组织，后者存放所属组织       以及所属组织的组织。如下图所示组织中两个字段皆为0的组织为集团，即没有所属。两个字段为”123456789”的组织为集团的一级子公司，因其以上除所属之外并无其他。而在parent_ids除了”123456789”存在其他字符串的组织，通过查找id可以该条数据属于某一级子公司的部门。由此三级关系可以在一张表中呈现。</p>
+<p>在这张表里面，设置有parent_id和parent_ids两个字段，前者存放所属组织，后者存放所属组		织 以及所属组织的组织。如下图所示组织中两个字段皆为0的组织为集团，即没有所属。两个		字段为”123456789”的组织为集团的一级子公司，因其以上除所属之外并无其他。而在	parent_ids除了”123456789”存在其他字符串的组织，通过查找id可以该条数据属于某一级子公司          的部门。由此三级关系可以在一张表中呈现。</p>
 <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642338.png" alt="aca5a50f7b97b3ef10870cfcd2dff1f7"></p>
 <ol start="2">
 <li><p>项目中数据库的配置</p>
@@ -137,6 +136,7 @@ sys:
 <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202306291642339.png" alt="img"></p>
 </li>
 <li><p>项目中有两个启动项，所以该项目应有两个端运行。第二个启动项按照功能分层，那第一个启动项是做什么的？</p>
+<p>一个是app类型的，一个是网页类型的。比如网页类型的，直接点击就可以实现进行登录。而在app中，可以使用扫码登录。</p>
 </li>
 <li><p>具体逻辑</p>
 <pre><code>1.  获取code，login会得到code
