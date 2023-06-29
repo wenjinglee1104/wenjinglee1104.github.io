@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | knowledge happened on 2023.06.28" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | knowledge happened on 2023.06.28
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+        
+        <ol>
+<li><p>数据库的设计</p>
+<p>在遇到结构较为复杂的数据库时，如层级迭代层级，公司下设有子公司，子公司下设有部门，而不同子公司的情况不同，这些信息如何存储在同一张表里。具体情况具体分析，以此遇到的情况为例进行例子。</p>
+<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\54aae81b12749ff920af141f0f4879c3.png" alt="54aae81b12749ff920af141f0f4879c3"></p>
+</li>
+</ol>
+<p>​		在这张表里面，设置有parent_id和parent_ids两个字段，前者存放所属组织，后者存放所属组织       以及所属组织的组织。如下图所示组织中两个字段皆为0的组织为集团，即没有所属。两个字段为”123456789”的组织为集团的一级子公司，因其以上除所属之外并无其他。而在parent_ids除了”123456789”存在其他字符串的组织，通过查找id可以该条数据属于某一级子公司的部门。由此三级关系可以在一张表中呈现。</p>
+<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\aca5a50f7b97b3ef10870cfcd2dff1f7.png" alt="aca5a50f7b97b3ef10870cfcd2dff1f7"></p>
+<ol start="2">
+<li><p>项目中数据库的配置</p>
+<pre><code class="java">server:
+  port: 1234   //本地端口号
+spring:
+  redis:       //redis的配置
+    host: 172.168.0.74
+    port: 6380
+    password: HelloWorld~
+    database: 3
+    jedis:
+      pool:
+        min-idle: 2
+        max-idle: 8
+        max-active: 10
+        max-wait: -1
+sys:
+  datasource:  //不同数据源的配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.168.0.74:3307/jtdc-auth?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+    username: root
+    security: Wechinese0~
+</code></pre>
+</li>
+</ol>
+<p>3.单点登录项目的学习</p>
+<ul>
+<li><p>单点登录是什么</p>
+<p>SSO 和我们去迪士尼玩时购买的通票很像，我们只要买一次通票，就可以玩所有游乐场内的设施，而不需要在过山车或者摩天轮那里重新买一次票。在这里，买票就相当于登录认证，游乐场就相当于使用一套 SSO 的公司，各种游乐设施就相当于公司的各个产品。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5f986710b03efd89891bfb6ae2f7c780.png" alt="img"></p>
+</li>
+<li><p>项目中有两个启动项，所以该项目应有两个端运行。第二个启动项按照功能分层，那第一个启动项是做什么的？</p>
+</li>
+<li><p>具体逻辑</p>
+<pre><code>1.  获取code，login会得到code
+    访问http://localhost:19888/oauth2/authorize?response_type=code&amp;client_id=&#123;client_id&#125;&amp;redirect_uri=&#123;redirect_uri&#125;&amp;state=&#123;state&#125;  
+</code></pre>
+<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\386b0f2e6bfa367c78ed2e11bdcd9678.png" alt="386b0f2e6bfa367c78ed2e11bdcd9678"></p>
+</li>
+</ul>
+<pre><code>2.  获取token，根据grant_type的方式不同决定怎么获取token
+    根据回调返回code，post方式调用http://localhost:19888/oauth2/accessToken接口返回token信息 
+</code></pre>
+<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\a6401606c24df9df0250a249745fe993.png" alt="a6401606c24df9df0250a249745fe993"></p>
+<pre><code>3.  获取个人信息  
+    根据回调返回code，post方式调用http://localhost:19888/oauth2/accessToken接口返回token信息 
+</code></pre>
+<p>![a6401606c24df9df0250a249745fe993](C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\a6401606c24df9df0250a249745fe993.png</p>
+<p><img src="C:\Users\27694\AppData\Roaming\DingTalkGov\79271120@zwdingding\ImageFiles\29d413be3c6a68078c7fcebdded0a13a.png" alt="29d413be3c6a68078c7fcebdded0a13a"></p>
+<ul>
+<li><p>在整体流程上</p>
+<p>启动两个server，一个作为子系统，另一个作为sso-server作为认证中心</p>
+<p>用户访问主页面过程：</p>
+<p>尝试获取本地accseetoken:若有，直接放行；若无，尝试获得授权码code；两者皆无的情况下，重定向到登录页面，创建授权码code，由code获得token。</p>
+<p>获取用户信息：由token获得系统内用户的信息。</p>
+<p><em>SSO单点登录访问流程主要有以下步骤：</em></p>
+<ol>
+<li><p><em>访问服务：SSO客户端发送请求访问应用系统提供的服务资源。</em></p>
+</li>
+<li><p><em>定向认证：SSO客户端会重定向用户请求到SSO服务器。</em></p>
+</li>
+<li><p><em>用户认证：用户身份认证。</em></p>
+</li>
+<li><p><em>发放票据：SSO服务器会产生一个随机的Service Ticket。</em></p>
+</li>
+<li><p><em>验证票据：SSO服务器验证票据Service Ticket的合法性，验证通过后，允许客户端访问服务。</em></p>
+</li>
+<li><p><em>传输用户信息：SSO服务器验证票据通过后，传输用户认证结果信息给客户端。</em></p>
+</li>
+<li><p><em>单点退出：用户退出单点登录。</em></p>
+</li>
+</ol>
+</li>
+<li><p>问题到这里做个结束，关键是怎么和三方做编排</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-06-29</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Know/'>
+                            Know
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
