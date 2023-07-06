@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | 数组&amp;字符串05 String为什么不可变" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | 数组&amp;字符串05 String为什么不可变
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            
+        
+        <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image202307060938078.jpeg" alt="从《牯岭街少年杀人事件》看爱情| 界面新闻"></p>
+<pre><code class="java">public final class String
+    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &#123;
+    /** The value is used for character storage. */
+    private final char value[];
+&#125;
+</code></pre>
+<p>1.保证String对象的安全性，避免被篡改。在实际项目中，基本信息和密码等用字符串存储</p>
+<ul>
+<li>创建一个简单的User类，该类使用String类型的字段存储用户名和密码。</li>
+</ul>
+<pre><code class="java">@Data
+public class User &#123;
+    private String username;
+    private String password;
+
+    public User(String username, String password)&#123;
+        this.username = username;
+        this.password = password;
+    &#125;
+
+&#125;
+</code></pre>
+<ul>
+<li>使用静态方法从外部获取用户凭据，尝试修改字符串数组</li>
+</ul>
+<pre><code class="java">public class StringSecurityExample &#123;
+    public static void main(String[] args)&#123;
+        String username = &quot;文婧Scarlet&quot;;
+        String password = &quot;123456&quot;;
+        User user = new User(username, password);
+
+        //获取用户凭据
+        String[] credentials = getUserCredentials(user);
+
+        //尝试修改从getUserCredentials返回的用户名和密码
+        credentials[0] = &quot;振华&quot;;
+        credentials[1] = &quot;0327&quot;;
+
+        //输出原始User对象中的用户名和密码
+        System.out.println(&quot;原始用户名：&quot; + user.getUsername());
+        System.out.println(&quot;原始密码：&quot; + user.getPassword());
+    &#125;
+
+    public static String[] getUserCredentials(User user)&#123;
+        String[] credentials = new String[2];
+        credentials[0] = user.getUsername();;
+        credentials[1] = user.getPassword();
+        return credentials;
+    &#125;
+&#125;
+//结果为原始用户名：文婧Scarlet，原始密码：123456。这也就是说我和这个世界一样，是不会变的。
+</code></pre>
+<p>2.保证哈希值不会频繁变更。在String类中，哈希值是在第一次计算时缓存的，后续对该哈希值的请求直接使用缓存值。</p>
+<pre><code class="java">String text1 = &quot;吾爱振华&quot;;
+String text2 = &quot;吾爱振华&quot;;
+
+//计算字符串text1的哈希值，此时会计算并缓存哈希值
+int hashCode1 = text1.hashCode();
+System.out.println(&quot;第一次计算 text1 的哈希值：&quot; + hashCode1);
+
+//再次计算text的哈希值，以此直接返回缓存的哈希值
+int hashCode1Cached = text1.hashCode();
+System.out.println(&quot;第二次计算：&quot; + hashCode1Cached);
+
+//计算字符串text2的哈希值，由于字符串常量池的存在，实际上text1 和 text2指向同一个字符串对象，所以这里直接返回缓存的哈希值
+int hashCode2 = text2.hashCode();
+System.out.println(&quot;text2 直接使用缓存：&quot; + hashCode2 );
+//第一次计算 text1 的哈希值：671374066
+//第二次计算：671374066
+//text2 直接使用缓存：671374066
+</code></pre>
+<p>在这个例子中，首次计算text1的哈希值时，会进行实际计算而缓存该值。当再次计算或计算具有相同内容的哈希值（由于字符串常量池的存在，实际上text1和text2指向同一个对象），将直接使用缓存的哈希值。</p>
+<p>3.其实和第二点是相辅相成的，就是为了实现字符串常量池，<strong>Java将相同内容的字符串存储在字符串常量池中。具有相同内容的字符串常量可以指向同一个String对象，达到节省内存空间的目的。</strong>实际上，String的许多方法，如subString()、concat()等方法都未修改原对象的数据，而是生成一个新的对象，原来的字符串对象没有发生改变。</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-06</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
