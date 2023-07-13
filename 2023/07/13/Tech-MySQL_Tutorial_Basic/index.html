@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | MySQL_Tutorial_Basic" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | MySQL_Tutorial_Basic
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="post-toc-text">1.数据库</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="post-toc-text">2.数据表</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="post-toc-text">基础操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%A1%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="post-toc-text">表的操作</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="post-toc-text">3.数据查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0"><span class="post-toc-text">4.数据更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-%E5%87%BD%E6%95%B0%E3%80%81%E8%B0%93%E8%AF%8D%E5%92%8CCASE"><span class="post-toc-text">5. 函数、谓词和CASE</span></a></li></ol>
+        
+        <h2 id="1-数据库"><a href="#1-数据库" class="headerlink" title="1.数据库"></a>1.数据库</h2><ul>
+<li>数据库的概念</li>
+</ul>
+<p>  数据库DB: 大量数据保存起来，通过计算机加工而成的可以进行高效访问的数据集合</p>
+<p>  数据库管理系统DBMS: 用来管理数据库的计算机系统</p>
+<p>  DBMS种类: 层次型数据库HDB，关系型数据库RDB </p>
+<ul>
+<li><p>数据库的结构</p>
+<p>二维表的形式，行为记录，列为字段</p>
+</li>
+<li><p>SQL语句</p>
+<p>DDL(数据定义语言): CREATE、DROP 、ALTER</p>
+<p>DML(数据操作语言)：SELECT、INSERT、UPDATE、DELETE</p>
+<p>DCL(数据控制语言)：COMMIT、ROLLBACK、REVOKE</p>
+</li>
+</ul>
+<h2 id="2-数据表"><a href="#2-数据表" class="headerlink" title="2.数据表"></a>2.数据表</h2><h3 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h3><ul>
+<li><p>创建数据库</p>
+<pre><code class="sql">CREATE DATABASE SHOP;
+</code></pre>
+</li>
+<li><p>创建数据表</p>
+<pre><code class="sql">CREATE TABLE Shohin
+(shohin_id       CHAR(4)       NOT NULL,
+ shohin_mei      VARCHAR(100)  NOT NULL,
+ shohin_bunrui   VARCHAR(32)   NOT NULL,
+ hanbai_tanka    INTEGER,
+ shiire_tanka    INTEGER,
+ torokubi        DATE,
+ PRIMARY KEY (shohin_id));
+</code></pre>
+</li>
+<li><p>删除表</p>
+<pre><code class="sql">DROP TABLE Shohin;
+</code></pre>
+</li>
+<li><p>表定义的更新</p>
+<pre><code class="sql">ALTER TABLE Shohin ADD COLUMN shohin_mei_kana VARCHAR(100);
+ALTER TABLE Shohin DROP COLUMN shohin_mei_kana;
+</code></pre>
+</li>
+</ul>
+<h3 id="表的操作"><a href="#表的操作" class="headerlink" title="表的操作"></a>表的操作</h3><ul>
+<li><p>加减法（行操作）</p>
+<pre><code class="sql">--使用UNION对表进行加法运算
+SELECT shohin_id, shohin_mei FROM Shohin
+UNION 
+SELECT shohin_id, shohin_mei FROM Shohin2;
+--在UNION的结果中保留重复行
+SELECT shohin_id, shohin_mei FROM Shohin
+UNION ALL
+SELECT shohin_id, shohin_mei FROM Shohin2;
+</code></pre>
+</li>
+<li><p>连结（列操作）</p>
+<pre><code class="sql">--将两张表进行内连结（两张表同时存在）
+SELECT TS.tenpo_id, TS.tenpo_mei, TS.shohin_id, S.shohin_mei, 
+S.hanbai_tanka
+FROM  TenpoShohin AS TS INNER JOIN Shohin AS S
+ON TS.shohin_id = S.shohin_id;
+WHERE TS.tenpo_id = &#39;000A&#39;;
+--将两张表进行外联结（主表中的数据会全部查出，方向调换意义完全不同）
+SELECT TS.tenpo_id, TS.tenpo_mei, S.shohin_id, S.shohin_mei,
+S.hanbai_tanka
+FROM TenpoShohin AS TS RIGHT OUTER JOIN Shohin AS S
+ON TS.shohin_id = S.shohin_id
+</code></pre>
+</li>
+</ul>
+<h2 id="3-数据查询"><a href="#3-数据查询" class="headerlink" title="3.数据查询"></a>3.数据查询</h2><ul>
+<li><p>查询语句</p>
+<pre><code class="sql">--查询所有字段
+SELECT * FROM Shohin;
+
+--查询具体字段
+SELECT shohin_id, shohin_mei, shiire_tanka FROM Shohin;
+
+--为列设定别名
+SELECT  shohin_id  AS id, 
+        shohin_mei AS name,
+        shiire_tanka AS &quot;进货单价&quot;
+FROM Shohin;
+
+--根据WHERE选择记录
+SELECT shohin_mei, shohin_bunrui
+FROM   Shohin
+WHERE  shohin_bunrui = &#39;衣服&#39;；
+</code></pre>
+<pre><code class="sql">--查询常数
+SELECT  38 AS kazu, &#39;2009-02-24&#39; AS hizuke, shohin_id
+FROM Shohin;
+</code></pre>
+<pre><code class="sql">--从结果中删除重复行,多个字段时只作用在第一个字段
+SELECT DISTINCT shohin_bunrui, torokubi
+FROM Shohin;
+</code></pre>
+</li>
+<li><p>运算符</p>
+<pre><code class="sql">--判断空或非空
+SELECT * FROM Shohin WHERE shohin_mei IS NULL;
+</code></pre>
+<pre><code class="sql">--计算表达式
+SELECT  shohin_mei, hanbai_tanka, hanbai_tanka * 2 AS &quot;hanbai_tanka_*2&quot;
+FROM Shohin;
+</code></pre>
+<pre><code class="sql">--比较运算符
+--选取出hanbai_tanka列的值不是500的记录
+SELECT shohin_mei, shohin_bunrui
+FROM Shohin
+WHERE hanbai_tanka &lt;&gt; 500;
+</code></pre>
+<pre><code class="sql">--选取出登记日期在2009年9月27日之前的记录
+SELECT shohin_mei, shohin_bunrui, hanbai_tanka
+FROM Shohin
+WHERE torokubi &lt; &#39;2009-09-27&#39;;
+</code></pre>
+<pre><code class="sql">--选取出销售单价比进货单价高出500日元以上的记录
+SELECT shohin_mei, hanbai_tanka, shiire_tanka
+FROM Shohin
+WHERE hanbai_tanka - shiire_tanka &gt;= 500;
+</code></pre>
+<pre><code class="sql">--逻辑运算符
+--在查询条件中添加NOT运算符
+SELECT shohin_mei, shohin_bunrui, hanbai_tanka
+FROM   Shohin
+WHERE NOT hanbai_tanka &gt;= 1000;
+</code></pre>
+</li>
+<li><p>聚合</p>
+<pre><code class="sql">--聚合函数：COUNT、SUM、AVG、MAX、MIN
+--聚合：将多行汇总为一行
+--计算表中数据的行数
+SELECT COUNT(*) FROM Shohin;
+--计算NULL以外数据的行数
+SELECT COUNT(shiire_tanka) FROM Shohin;
+--计算合计值
+SELECT SUM(hanbai_tanka) FROM Shohin;
+--计算平均值
+SELECT AVG(hanbai_tanka) FROM Shohin;
+--计算登记日期的最大值和最小值
+SELECT MAX(torokubi), MIN(torokubi) FROM Shohin;
+</code></pre>
+</li>
+<li><p>分组</p>
+<p><del>在SELECT子句中书写聚合键和聚合函数之外的列名</del></p>
+<pre><code class="sql">--按照商品种类统计数据行数
+SELECT shohin_bunrui, COUNT(*)
+FROM Shohin
+GROUP BY shohin_bunrui;
+</code></pre>
+<pre><code class="sql">--同时使用WHERE和GROUP BY子句
+SELECT shiire_tanka, COUNT(*)
+FROM   Shohin
+WHERE  shohin_bunrui = &#39;衣服&#39;
+GROUP BY shiire_tanka;
+</code></pre>
+<pre><code class="sql">--为聚合结果指定条件
+SELECT    shohin_bunrui, AVG(shiire_tanka), AVG(hanbai_tanka)
+FROM      Shohin
+GROUP BY  shohin_bunrui
+HAVING AVG(hanbai_tanka) &gt;= 2500;
+</code></pre>
+</li>
+<li><p>排序</p>
+<pre><code class="sql">--ASC 和 DESC分别为升序和降序。在ORDER BY子句中配置多个排序键，会优先使用左侧的键。
+SELECT     shohin_id, shohin_mei, shiire_tanka, hanbai_tanka
+FROM       Shohin
+ORDER BY   shiire_tanka ASC, hanbai_tanka DESC
+</code></pre>
+</li>
+<li><p>视图</p>
+<pre><code class="sql">--创建视图
+CREATE VIEW ShohinSum (shohin_bunrui, cnt_shohin)
+AS
+SELECT shohin_bunrui, COUNT(*)
+FROM   Shohin
+GROUP BY shohin_bunrui;
+</code></pre>
+<pre><code class="sql">--视图的嵌套
+CREATE VIEW ShohinSumJim(shohin_bunrui_backup, cnt_shohin_backup)
+AS
+SELECT shohin_bunrui, cnt_shohin
+FROM   ShohinSum 
+WHERE  shohin_bunrui = &#39;办公用品&#39;;
+</code></pre>
+<pre><code class="sql">--删除视图
+DROP VIEW ShohinSum;
+</code></pre>
+</li>
+<li><p>子查询&#x2F;关联子查询</p>
+<pre><code class="sql">--子查询是将用来定义视图的SELECT语句直接用于FROM子句中
+SELECT shohin_bunrui, cnt_shohin
+FROM (SELECT shohin_bunrui, COUNT(*) AS cnt_shohin
+     FROM Shohin) 
+AS ShohinSum;
+</code></pre>
+<pre><code class="sql">--增加子查询的嵌套层数
+SELECT shohin_bunrui, cnt_shohin
+FROM (SELECT *
+        FROM (SELECT shohin_bunrui, COUNT(*) AS cnt_shohin
+              FROM Shohin
+              GROUP BY shohin_bunrui) AS ShohinSum
+        WHERE cnt_shohin = 4) AS ShohinSum2;
+)
+</code></pre>
+<pre><code class="sql">--标量子查询，即返回单一制的子查询
+--选取出销售单价高于全部商品的平均单价的商品
+SELECT shohin_id, shohin_mei, hanbai_mei
+FROM   Shohin
+WHERE  hanbai_tanka &gt; ( SELECT AVG(hanbai_tanka)
+                        FROM Shohin);
+--在having子句中使用标量子查询
+SELECT     shohin_bunrui, AVG(hanbai_tanka)
+FROM       Shohin
+GROUP  BY  shohin_bunrui
+HAVING AVG(hanbai_tanka) &gt; (SELECT AVG(hanbai_tanka) FROM Shohin);
+</code></pre>
+<pre><code class="sql">--关联子查询
+--通过关联子查询按照商品种类对平均销售单价进行比较
+SELECT shohin_id, shohin_mei, hanbai_tanka
+FROM   Shohin  AS S1
+WHERE  hanbai_tanka &gt; ( SELECT   AVG(hanbai_tanka)
+                        FROM     Shohin AS S2
+                        WHERE    S1.shohin_bunrui = S2.shohin_bunrui
+                        GROUP BY shohin_bunrui;
+                      )
+</code></pre>
+</li>
+</ul>
+<h2 id="4-数据更新"><a href="#4-数据更新" class="headerlink" title="4.数据更新"></a>4.数据更新</h2><ul>
+<li><p>插入</p>
+<pre><code class="sql">--向表中插入一行数据
+INSERT INTO ShohinIns(shohin_id, shohin_mei, shohin_bunrui, hanbai_tanka, shiire_tanka, torokuri) VALUES(&#39;0001&#39;, &#39;T恤衫&#39;, &#39;衣服&#39;, 1000, 500, &#39;2009-09-20&#39;);
+
+--将商品表中的数据复制到商品复制表中
+INSERT INTO ShohinCopy (shohin_id, shohin_mei, shohin_bunrui,
+                        hanbai_tanka, shiire_tanka, torokuri)
+SELECT shohin_id, shohin_mei, shohin_bunrui,
+hanbai_tanka, shiire_tanka, torokubi
+FROM Shohin;
+</code></pre>
+</li>
+<li><p>删除</p>
+<pre><code class="sql">--清空表
+DELETE FROM Shohin;
+
+--删除销售单价大于等于4000日元的数据
+DELETE FROM Shohin WHERE hanbai_tanka &gt;= 4000;
+</code></pre>
+</li>
+<li><p>更新</p>
+<pre><code class="sql">--将登记日期全部更新为&quot;2009-10-10&quot;
+UPDATE Shohin SET torokubi = &#39;2009-10-10&#39;;
+
+--将商品种类为厨房用具的记录的销售单价更新为原来的十倍
+UPDATE Shohin
+SET hanbai_tanka = hanbai_tanka * 10
+WHERE shohin_bunrui = &#39;厨房用具&#39;
+
+--使用NULL进行更新
+UPDATE Shohin SET torokubi = NULL WHERE shohin_id = &#39;0008&#39;;
+</code></pre>
+</li>
+<li><p>事务</p>
+<pre><code class="sql">--事务符合ACID,将运动T恤的销售单价降低1000元，将T恤的销售单价上浮1000元
+START TRANSACTION;
+ UPDATE Shohin
+     SET hanbai_tanka = hanbai_tanka - 1000
+ WHERE shohin_mei = &#39;运动T恤&#39;;
+ 
+ UPDATE Shohin
+     SET hanbai_tanka = hanbai_tanka - 1000
+ WHERE shohin_mei = &#39;T恤衫&#39;;
+COMMIT;
+</code></pre>
+</li>
+</ul>
+<h2 id="5-函数、谓词和CASE"><a href="#5-函数、谓词和CASE" class="headerlink" title="5. 函数、谓词和CASE"></a>5. 函数、谓词和CASE</h2><ul>
+<li><p>函数</p>
+<pre><code class="sql">--算术函数
+--计算数值的绝对值
+SELECT m, ABS(m) AS abs_col FROM SampleMath;
+--计算除法（n / p）的余数
+SELECT n, p, MOD(n, p) AS mod_col FROM SampleMath;
+--对m列的数值进行n列位数的四舍五入处理
+SELECT m, n, ROUND(m, n) AS round_col FROM SampleMath;
+--拼接字符串
+SELECT str1, str2, str1 || str2 AS str_concat FROM SampleStr;
+--计算字符串长度
+SELECT str1, LENGTH(str1) AS len_str FROM SampleStr;
+--大写转换小写
+SELECT str1, LOWER(str1) AS low_str FROM SampleStr 
+WHERE str1 IN (&quot;ABC&quot;, &quot;aBC&quot;, &quot;abc&quot;);
+--字符串替换
+SELECT str1, str2, str3
+       REPLACE(str1, str2, str3) AS rep_str
+FROM SampleStr;
+--字符串截取（第3、4位的字符）
+SELECT str1, SUBSTRING(str1 FROM 3 FOR 2) AS sub_str
+FROM SampleStr;
+--将小写转换为大写，反之为LOWER
+SELECT str1, UPPER(str1) AS up_str FROM SampleStr 
+WHERE str1 IN (&#39;ABC&#39;, &#39;aBC&#39;, &#39;abc&#39;);
+</code></pre>
+<pre><code class="sql">--日期函数，获得当前日期
+SELECT CURRENT_DATE;
+--获得当前时间
+SELECT CURRENT_TIME；
+--获得当前日期时间
+SELECT CURRENT_TIMESTAMP;
+--截取日期元素
+SELECT CURRENT_TIMESTAMP
+       EXTRACT(YEAR FROM CURRENT_TIMESTAMP) AS year;
+</code></pre>
+<pre><code class="sql">--类型转换
+--将字符串类型转换为数值类型
+SELECT CAST(&#39;0001&#39; AS INTEGER) AS int_col;
+--将字符串类型转换为日期类型
+SELECT CAST(&#39;2009-12-14&#39; AS DATE) AS date_col;
+</code></pre>
+</li>
+<li><p>谓词</p>
+<pre><code class="sql">--谓词，是需要满足特定条件的函数，该条件为“返回值为真值”
+--使用LIKE进行前方一致的查询，“%”代表“0字符以上的任意字符串”
+SELECT * FROM SampleLike WHERE strcol LIKE &#39;ddd%&#39;;
+--使用LIKE进行中间一致查询
+SELECT * FROM SampleLike WHERE strcol LIKE &#39;%ddd%&#39;;
+--使用LIKE和下划线进行后方一致查询（对应个数）
+SELECT * FROM SampleLike WHERE strcol LIKE &#39;abc___&#39;;
+--范围查询
+SELECT shohin_mei, hanbai_tanka FROM Shohin
+WHERE hanbai_tanka BETWEEN 100 AND 1000;
+--判断是否为空
+SELECT shohin_mei, shiire_tanka FROM Shohin WHERE shiire_tanka IS NULL;
+--通过IN来指定多个进货单价进行查询
+SELECT shohin_mei, shiire_tanka FROM Shohin WHERE shiire_tanka IN (320, 500, 5000);
+--使用子查询作为IN谓词的参数
+SELECT shohin_mei, hanbai_tanka
+FROM Shohin
+WHERE shohin_id IN (SELECT shohin_id FROM TenpoShohin WHERE tenpo_id = &#39;000C&#39;);
+--谓词的作用是“判断是否存在满足某种条件的记录”，存在则返回“真”
+SELECT shohin_mei, hanbai_tanka
+FROM Shohin AS S
+WHERE EXISTS (SELECT *
+              FROM TenpoShohin AS TS
+              WHERE TS.tenpo_id = &#39;000C&#39;
+              AND TS.shohin_id = S.shohin_id
+             );
+</code></pre>
+</li>
+<li><p>CASE</p>
+<pre><code class="sql">--分为简单表达式和搜索表达式
+CASE WHEN &lt;判断表达式&gt; THEN &lt;表达式&gt;
+     WHEN &lt;判断表达式&gt; THEN &lt;表达式&gt;
+     WHEN &lt;判断表达式&gt; THEN &lt;表达式&gt;
+     WHEN &lt;判断表达式&gt; THEN &lt;表达式&gt;
+     ...
+     ELSE &lt;表达式&gt;
+END
+--通过CASE表达式将A-C的字符串加入到商品分类中
+SELECT shohin_mei,
+       CASE WHEN shohin_bunrui = &#39;衣服&#39; THEN &#39;A:&#39; || shohin_bunrui
+            WHEN  shohin_bunrui = &#39;办公用品&#39; THEN &#39;B:&#39; || shohin_bunrui
+            WHEN  shohin_bunrui = &#39;厨房用具&#39; THEN &#39;C:&#39; || shohin_bunrui
+            ELSE NULL
+       END AS abc_shohin_bunrui
+FROM Shohin;
+--使用CASEB表达式进行行列转换
+SELECT SUM(CASE WHEN shohin_bunrui = &#39;衣服&#39; THEN hanbai_tanka ELSE 0 END) 
+       AS sum_tanka_ihuku,
+       SUM(CASE WHEN shohin_bunrui = &#39;厨房用具&#39; THEN hanbai_tanka ELSE 0            END) AS sum_tanka_kitchen,
+       SUM(CASE WHEN shohin_bunrui = &#39;办公用品&#39; THEN hanbai_tanka ELSE 0            END) AS sum_tanka_jimu
+FROM Shohin;
+</code></pre>
+</li>
+</ul>
+<p><strong>至此，MySQL的基础框架已经基本完成，撒花！</strong></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307131349603.png" alt="cee97bb6c1f0f1c03a8aac937111954"></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-13</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
