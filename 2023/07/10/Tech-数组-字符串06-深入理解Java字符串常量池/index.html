@@ -95,9 +95,30 @@
 
     <div class="post-md">
         
-            
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#new-String-%E2%80%9C%E6%96%87%E5%A9%A7%E2%80%9D-%E5%88%9B%E5%BB%BA%E4%BA%86%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">new String(“文婧”)创建了几个对象</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F%E6%B1%A0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="post-toc-text">字符串常量池的作用</span></a></li></ol>
         
         <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307120957608.jpg" alt="20230710深入理解"></p>
+<p><strong>实际上字符串常量池是一个非常大的subject，从原理、利用再到内存。但是因为我目前还在搭建知识框架的阶段，所以不做过深研究。和上图一样，貌似”我逐渐理解一切“，实际上”没完全理解”。</strong></p>
+<h4 id="new-String-“文婧”-创建了几个对象"><a href="#new-String-“文婧”-创建了几个对象" class="headerlink" title="new String(“文婧”)创建了几个对象"></a>new String(“文婧”)创建了几个对象</h4><pre><code class="java">String s = new String(&quot;文婧&quot;);
+</code></pre>
+<p>使用 new 关键字创建字符串对象时，虚拟机会先在字符串常量池中查找有没有“文婧”这个字符串对象。如果有，就不会在字符串常量池中创建“文婧”，直接在堆里创建一个“文婧”的字符串对象，然后将此对象的地址返回赋值给变量s。如果没有，先在字符串常量池中创建一个“文婧”的字符串对象，然后再在堆中创建一个“文婧”的字符串对象，然后将堆中这个“文婧”的字符串对象地址返回赋值给变量 s。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307131843238.png" alt="img"></p>
+<p>在Java中，栈上存储的是基本数据类型的变量和对象的引用，而对象本身则存储在堆上。</p>
+<p>对于这行代码 <code>String s = new String(&quot;文婧&quot;);</code>，它创建了两个对象：一个是字符串对象 “文婧”，它被添加到了字符串常量池中，另一个是通过 new String() 构造函数创建的字符串对象 “文婧”，它被分配在堆内存中，同时引用变量 s 存储在栈上，它指向堆内存中的字符串对象 “文婧”。</p>
+<h4 id="字符串常量池的作用"><a href="#字符串常量池的作用" class="headerlink" title="字符串常量池的作用"></a>字符串常量池的作用</h4><pre><code class="java">String s = &quot;文婧&quot;；
+</code></pre>
+<p>当执行 <code>String s = &quot;文婧&quot;</code> 时，Java 虚拟机会先在字符串常量池中查找有没有”文婧”这个字符串对象，如果有，则不创建任何对象，直接将字符串常量池中这个”文婧”的对象地址返回，赋给变量 s；如果没有，在字符串常量池中创建”文婧”这个对象，然后将其地址返回，赋给变量 s。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307140658221.png" alt="img"></p>
+<p>综上，new 的方式始终会创建一个对象在堆上，不管字符串的内容是否已经存在。而双引号的方式会重复利用字符串常量池中已经存在的对象，节省了内存，提高了性能！</p>
+<p><del>附加题</del></p>
+<pre><code class="java">String s = new String(&quot;文婧&quot;);
+String s1 = new String(&quot;文婧&quot;);
+</code></pre>
+<p><del>上述语句会创建三个对象，堆上两个字符串常量，字符串常量池中一个</del></p>
+<pre><code class="java">String s = &quot;文婧&quot;;
+String s1 = &quot;文婧&quot;;
+</code></pre>
+<p><del>这两行代码只会创建一个对象，就是字符串常量池中的一个。</del></p>
 
     </div>
 
