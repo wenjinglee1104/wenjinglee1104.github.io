@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | 面向对象编程01 Java的类和对象" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | 面向对象编程01 Java的类和对象
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E5%92%8C%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">面向过程和面向对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%B1%BB"><span class="post-toc-text">类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#new%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">new一个对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">初始化对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8E%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">关于对象</span></a></li></ol>
+        
+        <h3 id="面向过程和面向对象"><a href="#面向过程和面向对象" class="headerlink" title="面向过程和面向对象"></a>面向过程和面向对象</h3><p>OOP(Object Oriented Programming): 面向对象编程。这个概念我理解了多年，从很多年之前参加技术论坛别人那这个作梗当玩笑开，到今天这个理念融入生活，我才真正明白其中的哲学。</p>
+<p>我上周五想吃牛排，就问食堂订购一批牛肉。从订购部位开始犯了难，不知道买哪里。再次就是烹饪方式，网上的教程都是黄油小锅慢煎，看起来非常考验技术。</p>
+<p>这就是面向过程。</p>
+<p>​		                                                                         <img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307151740400.jpg" alt="1c2b6f3a90d0e4a3aa01c06dec33dd2"></p>
+<p>而当我走进尊贵的兰州大饭店，跟老板要一碗牛肉拉面和招牌手抓饼的时候，坐在桌子旁边等就好了。我可以坐着吃，躺着吃，也可以放盐放醋放胡椒来吃。这就是面向对象。</p>
+<p>​        <img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307151742629.jpg" alt="0e5e799a336284d13e9159c302c76d5">    </p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>对象的构造在概念上包含性质和动作。就好像爱笑的振华和爱吃的小猪。所以，一个成熟的类包含字段（Field）、方法(Method)和构造方法(Constructor)</p>
+<pre><code class="java">public class Person&#123;
+    //字段
+    private String name;
+    private Integer age;
+    private Integer sex;
+    
+    //构造方法,因为是空的，所以可以缺省，所以常常不用动
+    public Person()&#123;
+        
+    &#125;
+    
+    //方法
+    private void eat()&#123;
+        
+    &#125;
+    
+     private void sleep()&#123;
+        
+    &#125;
+&#125;
+</code></pre>
+<h3 id="new一个对象"><a href="#new一个对象" class="headerlink" title="new一个对象"></a>new一个对象</h3><p>一般写法如下，并且写在使用对象的类中</p>
+<pre><code class="java">public class PersonTest&#123;
+    public static void main(String[] args)&#123;
+        Person person = new Person();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="初始化对象"><a href="#初始化对象" class="headerlink" title="初始化对象"></a>初始化对象</h3><p>方法是很多的，但是常用的就这么一种。（主打一个不说废话）</p>
+<pre><code class="java">@Data
+public class Person&#123;
+    //字段
+    private String name;
+    private Integer age;
+    private Integer sex;
+    
+    public Person(String name, Integer age, Integer sex)&#123;
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">public class PersonTest&#123;
+    public static void main(String[] args)&#123;
+        Person person = new Person(&quot;吾爱振华&quot;, 52, 1);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="关于对象"><a href="#关于对象" class="headerlink" title="关于对象"></a>关于对象</h3><p>属于拔高，就是多态。父类具有某种方法，子类可以改写此类方法，实现多种形态。</p>
+<pre><code class="java">public class Shape&#123;
+    public void draw()&#123;
+        System.out.println(&quot;形状&quot;);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">public class line extends Shape&#123;
+    @Override
+    public void draw()&#123;
+        System.out.println(&quot;线&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>测试类这么写</p>
+<pre><code class="java">public class Test &#123;
+    public static void main(String[] args) &#123;
+        Shape line = new Line();
+        line.draw();
+&#125;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-15</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>

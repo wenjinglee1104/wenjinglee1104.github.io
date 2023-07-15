@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | 数组&amp;字符串07 String.intern方法及相等判断和拼接" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | 数组&amp;字符串07 String.intern方法及相等判断和拼接
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%98%E5%8C%96%EF%BC%9A%E8%AF%A6%E8%A7%A3-String-intern-%E6%96%B9%E6%B3%95"><span class="post-toc-text">Java 字符串优化：详解 String.intern() 方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-String%E3%80%81StringBuilder%E3%80%81StringBuffer"><span class="post-toc-text">Java String、StringBuilder、StringBuffer</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-String%E7%9B%B8%E7%AD%89%E5%88%A4%E6%96%AD"><span class="post-toc-text">Java String相等判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-String%E6%8B%BC%E6%8E%A5"><span class="post-toc-text">Java String拼接</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E5%8F%B7%E6%93%8D%E4%BD%9C%E7%AC%A6%E6%8B%BC%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-text">+号操作符拼接字符串</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#StringBuilder%E7%9A%84%E6%96%B9%E6%B3%95"><span class="post-toc-text">StringBuilder的方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#String-concat%E5%92%8CString-join-%E4%B8%8D%E5%A4%AA%E5%B8%B8%E7%94%A8"><span class="post-toc-text">String.concat和String.join(不太常用)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#StringUtils-join%E6%8B%BC%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88%E7%81%B5%E6%B4%BB%E4%B8%80%E4%BA%9B%EF%BC%89"><span class="post-toc-text">StringUtils.join拼接字符串（灵活一些）</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-String%E6%8B%86%E5%88%86"><span class="post-toc-text">Java String拆分</span></a></li></ol>
+        
+        <p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307140712905.png" alt="1cb1957cef38e3c52657626cdea17a5"></p>
+<p>最近爱听陀飞轮，歌词字字箴言，使人不免遗憾往事，同时勉励自我珍惜当下，勿要失去了才懂得重要</p>
+<h3 id="Java-字符串优化：详解-String-intern-方法"><a href="#Java-字符串优化：详解-String-intern-方法" class="headerlink" title="Java 字符串优化：详解 String.intern() 方法"></a>Java 字符串优化：详解 String.intern() 方法</h3><p><code>String</code>类型的常量池比较特殊，类似一个JAVA系统级别提供的缓存。它的主要使用方法有两种：</p>
+<ul>
+<li>直接使用双引号声明出来的<code>String</code>对象会直接存储在常量池中。</li>
+<li>如果不是用双引号声明的<code>String</code>对象，可以使用<code>String</code>提供的<code>intern</code>方法。intern 方法会从字符串常量池中查询当前字符串是否存在，<strong>若不存在就会将当前字符串放入常量池中</strong></li>
+</ul>
+<pre><code class="java">String s1 = new String(&quot;吾爱&quot;) + new String(&quot;振华&quot;);
+String s2 = s1.intern();
+System.out.println(s1 == s2);
+</code></pre>
+<p>第一行代码，涉及到字符串的拼接。首先会在字符串常量池中创建两个对象，即“吾爱”和“振华”。然后会在堆上创建两个对象“吾爱”和“振华”，接着会创建一个对象“吾爱振华”。s1引用的是堆上的字符串对象。</p>
+<p>第二行代码，对s1执行intern()方法，该方法会从字符串常量池中查找“吾爱振华”是否存在，此时不存在。但堆中已经存在，<strong>所以字符串常量池中将该堆中对象的引用保存。</strong></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307140726739.png" alt="img"></p>
+<p>由此引出一个问题，“吾爱振华”的对象是什么时候创建的？</p>
+<h3 id="Java-String、StringBuilder、StringBuffer"><a href="#Java-String、StringBuilder、StringBuffer" class="headerlink" title="Java String、StringBuilder、StringBuffer"></a>Java String、StringBuilder、StringBuffer</h3><p>由于字符串是不可变的，所以当遇到字符串拼接（尤其是使用<code>+</code>号操作符）的时候，就需要考量性能的问题，Java 就设计了一个专门用来解决此问题的 StringBuffer 类和StringBuffer类。</p>
+<pre><code class="java">public static void main(String[] args)&#123;
+        // 创建一个空的StringBuilder对象
+        StringBuilder builder = new StringBuilder();
+
+        // 使用append()方法添加字符串
+        builder.append(&quot;Hello&quot;);
+        builder.append(&quot; &quot;);
+        builder.append(&quot;World&quot;);
+
+        // 使用insert()方法在指定位置插入字符串
+        builder.insert(5, &quot;Awesome &quot;);
+
+        // 使用delete()方法删除指定范围内的字符
+        builder.delete(0, 7);
+
+        // 使用reverse()方法反转字符串
+        builder.reverse();
+
+        // 使用toString()方法将StringBuilder转换为String
+        String result = builder.toString();
+
+        System.out.println(result);  // 输出：dlroW emosewA
+&#125;
+//在这个小demo上有个小乌龙，我惯常喜欢在GPT上根据小知识点要他给我个简单的例子，在这个例子上GPT的结果算错了。
+</code></pre>
+<h3 id="Java-String相等判断"><a href="#Java-String相等判断" class="headerlink" title="Java String相等判断"></a>Java String相等判断</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307151214769.jpeg" alt="img"></p>
+<pre><code class="java">String wenjing = new String(&quot;文婧&quot;)；
+String zhenhua = new String(&quot;振华&quot;)；
+
+System.out.println(wenjing.equals(zhenhua)); // true  内容是否相同
+System.out.println(wenjing == zhenhua); // false  是不是同一个对象，占用同一个地址
+</code></pre>
+<h3 id="Java-String拼接"><a href="#Java-String拼接" class="headerlink" title="Java String拼接"></a>Java String拼接</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307151127533.jpeg" alt="img"></p>
+<h4 id="号操作符拼接字符串"><a href="#号操作符拼接字符串" class="headerlink" title="+号操作符拼接字符串"></a>+号操作符拼接字符串</h4><pre><code class="java">String wenjing = &quot;文婧&quot;；
+String zhenhua = &quot;振华&quot;；
+System.out.println(wenjing + zhenhua);
+</code></pre>
+<h4 id="StringBuilder的方法"><a href="#StringBuilder的方法" class="headerlink" title="StringBuilder的方法"></a>StringBuilder的方法</h4><pre><code class="java">StringBuilder family = new StringBuilder();
+family.append(wenjing);
+family.append(zhenhua);
+</code></pre>
+<pre><code class="java">StringBuilder sb = new StringBuilder();
+for(int i = 0; i &lt; 10000; i++)&#123;
+    sb.append(&quot;liangziyi&quot;);
+&#125;
+//如果在这里我不是用sb而是String，在这个循环上很容易看出，sb占用内存比String加号不断创建对象少很多，运行速度快得多。
+</code></pre>
+<h4 id="String-concat和String-join-不太常用"><a href="#String-concat和String-join-不太常用" class="headerlink" title="String.concat和String.join(不太常用)"></a>String.concat和String.join(不太常用)</h4><pre><code class="java">String family1 = wenjing.concat(zhenhau); //结果就是文婧振华
+String family2 = String.join(&quot;-&quot;, wenjing, zhenhua); 
+//第一个参数是分隔符，所以结果是文婧-振华。
+</code></pre>
+<h4 id="StringUtils-join拼接字符串（灵活一些）"><a href="#StringUtils-join拼接字符串（灵活一些）" class="headerlink" title="StringUtils.join拼接字符串（灵活一些）"></a>StringUtils.join拼接字符串（灵活一些）</h4><pre><code class="java">
+</code></pre>
+<h3 id="Java-String拆分"><a href="#Java-String拆分" class="headerlink" title="Java String拆分"></a>Java String拆分</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307151129259.jpeg" alt="首页 微信表情 搞笑表情  微信幽默熊猫头撕逼滑稽表情包为您奉上"></p>
+<p>不想写了！去他妈的！</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-14</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
