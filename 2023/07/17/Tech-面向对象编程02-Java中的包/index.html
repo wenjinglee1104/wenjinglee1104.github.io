@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | 面向对象编程02 Java中的包" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | 面向对象编程02 Java中的包
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8C%85"><span class="post-toc-text">关于包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8C%85%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="post-toc-text">包的作用域</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%BC%E5%85%A5%E5%8C%85"><span class="post-toc-text">导入包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%80%BB%E8%80%8C%E8%A8%80%E4%B9%8B%EF%BC%8C%E8%A8%80%E8%80%8C%E6%80%BB%E4%B9%8B"><span class="post-toc-text">总而言之，言而总之</span></a></li></ol>
+        
+        <p>​                                                                                            <img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307170923346.jpeg" alt="img"></p>
+<h3 id="关于包"><a href="#关于包" class="headerlink" title="关于包"></a>关于包</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307170925468.png" alt="image-20230717092527387"></p>
+<p>包 package 是 Java 定义的一种名字空间。一个 class 总是属于某个包。</p>
+<pre><code class="java">package ming; // 申明包名ming
+
+public class Person &#123;
+&#125;
+</code></pre>
+<h3 id="包的作用域"><a href="#包的作用域" class="headerlink" title="包的作用域"></a>包的作用域</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307170926175.jpeg" alt="img"></p>
+<p>位于同一个包的类，可以访问包作用域的<strong>字段和方法</strong>。不用<code>public</code>、<code>protected</code>、<code>private</code>修饰的字段和方法就是包作用域。</p>
+<pre><code class="java">package hello;
+
+public class Person &#123;
+    // 包作用域:
+    void hello() &#123;
+        System.out.println(&quot;Hello!&quot;);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">package hello;
+
+public class Main &#123;
+    public static void main(String[] args) &#123;
+        Person p = new Person();
+        p.hello(); // 可以调用，因为Main和Person在同一个包
+    &#125;
+&#125;
+</code></pre>
+<h3 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307170927229.jpeg" alt="img"></p>
+<p>在一个<code>class</code>中，我们总会引用其他的<code>class</code>。</p>
+<pre><code class="java">// Person.java
+package ming;
+
+// 导入完整类名:
+import mr.jun.Arrays;
+
+public class Person &#123;
+    public void run() &#123;
+        Arrays arrays = new Arrays();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="总而言之，言而总之"><a href="#总而言之，言而总之" class="headerlink" title="总而言之，言而总之"></a>总而言之，言而总之</h3><p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307170930980.jpeg" alt="img"></p>
+<p>JDK 的核心类使用<code>java.lang</code>包，编译器会自动导入；JDK 的其它常用类定义在<code>java.util.*</code>，<code>java.math.*</code>，<code>java.text.*</code>，…….</p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-17</span>
+            
+            
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
