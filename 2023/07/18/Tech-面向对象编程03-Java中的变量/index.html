@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | 面向对象编程03 Java中的变量" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | 面向对象编程03 Java中的变量
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="post-toc-text">局部变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="post-toc-text">成员变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="post-toc-text">静态变量</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="post-toc-text">常量</span></a></li></ol>
+        
+        <h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>在方法体内声明的变量被称为局部变量，在栈上分配。</p>
+<pre><code class="java">public class LocalVariable &#123;
+    public static void main(String[] args) &#123;
+        //a b c为局部变量
+        int a = 10;
+        int b = 10;
+        int c = a + b;
+        System.out.println(c);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><p>在类内部但在方法体外声明的变量称为成员变量，或者实例变量，或者字段。之所以称为实例变量，是因为该变量只能通过类的实例（对象）来访问。</p>
+<pre><code class="java">public class InstanceVariable &#123;
+    //成员变量
+    int data = 88;
+    public static void main(String[] args) &#123;
+        InstanceVariable iv = new InstanceVariable();
+        System.out.println(iv.data); // 88
+    &#125;
+&#125;
+</code></pre>
+<h3 id="静态变量"><a href="#静态变量" class="headerlink" title="静态变量"></a>静态变量</h3><p>通过 static 关键字声明的变量被称为静态变量（类变量），它可以直接被类访问。</p>
+<pre><code class="java">public class Example &#123;
+    // 静态变量
+    static int count;
+
+    public static void main(String[] args) &#123;
+        // 可以通过类名直接访问静态变量
+        Example.count = 5;
+
+        // 创建多个对象，共享同一个静态变量
+        Example obj1 = new Example();
+        Example obj2 = new Example();
+
+        // 通过对象访问静态变量
+        System.out.println(obj1.count);  // 输出：5
+        System.out.println(obj2.count);  // 输出：5
+
+        // 修改静态变量的值
+        obj1.count = 10;
+
+        // 所有对象共享修改后的静态变量值
+        System.out.println(obj1.count);  // 输出：10
+        System.out.println(obj2.count);  // 输出：10
+    &#125;
+&#125;
+</code></pre>
+<p><code>count</code>是一个静态变量。我们可以通过类名<code>Example.count</code>或对象名<code>obj1.count</code>、<code>obj2.count</code>来访问静态变量。在创建多个<code>Example</code>对象后，它们共享相同的静态变量，并且修改其中一个对象的静态变量会影响到其他对象。在这段代码中，无需通过创建实例来访问变量，可以直接通过类去访问。</p>
+<p>静态变量通常用于在类的所有实例之间共享数据或记录与类相关的信息。它们在许多场景中非常有用，例如计数器、全局配置、共享资源等。需要注意的是，在使用静态变量时应考虑线程安全性和适当的访问控制。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>在 Java 中，有些数据的值是不会发生改变的，这些数据被叫做常量——使用 final 关键字修饰的成员变量。常量的值一旦给定就无法改变！</p>
+<pre><code class="java">public class FinalVariable &#123;
+    final String CHEN = &quot;沉&quot;;
+    static final String MO = &quot;默&quot;;
+    public static void main(String[] args) &#123;
+        FinalVariable fv = new FinalVariable();
+        System.out.println(fv.CHEN);
+        System.out.println(MO);
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-18</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
