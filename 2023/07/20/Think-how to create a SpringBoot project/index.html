@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  viewport-fit=cover" name="viewport" />
+    <meta name="description" content="Tech | how to create a SpringBoot project" />
+    <link rel="alternate icon" type="image/webp" href="/img/favicon.webp">
+    <title>Wenjing | 记录</title>
+
+    
+        
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/reset.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/markdown.css">
+
+            
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/fonts.css">
+ 
+            <!--注意：首页既不是post也不是page-->
+            
+        
+    
+    
+<link rel="stylesheet" href="/css/ui.css">
+ 
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+    
+    <body>
+        <div class="paper">
+            
+            
+            
+            
+                <div class="shadow-drop-2-bottom paper-main">
+                    
+<div class="header">
+    <div class="header-container">
+        <img style="
+        width: 56px;
+        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="/img/favicon.webp" width="10%"></img>
+        <div class="header-content">
+            <a class="logo" href="/">Wenjing</a> 
+            <span class="description"></span> 
+        </div>
+        
+    </div>
+    
+   
+    <ul class="nav">
+        
+            
+                <li><a href="/">首页</a></li>
+            
+        
+            
+                <li><a href="/list/">文章</a></li>
+            
+        
+            
+                <li><a href="/tech/">tech</a></li>
+            
+        
+            
+                <li><a href="/biomed/">biomed</a></li>
+            
+        
+            
+                <li><a href="/daily/">daily</a></li>
+            
+        
+    </ul>
+</div> 
+        
+                    
+                    
+
+                    
+                    
+                    
+                    <!--说明是文章post页面-->
+                    
+                        <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Tech | how to create a SpringBoot project
+        </div>
+      
+    
+
+    <div class="post-md">
+        
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#java-%E7%A8%8B%E5%BA%8F%E5%8C%85org-springframework-boot%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="post-toc-text">java: 程序包org.springframework.boot不存在的解决方法</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#idea%E5%88%9B%E5%BB%BAspringboot%E9%A1%B9%E7%9B%AE%EF%BC%8CApplication-java%E4%B8%8D%E8%83%BD%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="post-toc-text">idea创建springboot项目，Application.java不能运行问题的解决</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#IDEA%E8%BF%90%E8%A1%8Crun%E4%B8%BA%E7%81%B0%E8%89%B2"><span class="post-toc-text">IDEA运行run为灰色</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Failed-to-execute-goal-org-apache-maven-plugins-maven-compiler-plugin-3-1-compile"><span class="post-toc-text">Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#mvn%E6%97%A0%E6%95%88%E7%9A%84%E6%A0%87%E8%AE%B0%EF%BC%9A%E2%80%93release"><span class="post-toc-text">mvn无效的标记：–release</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Error-java-Compilation-failed-internal-java-compiler-error-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="post-toc-text">Error:java: Compilation failed: internal java compiler error 的解决方案</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#UnsupportedClassVersionError-has-been-compiled-by-a-more-recent-version-of-the-Java-Runtime-class-file-version-55-0-this-version-up-to-52-0"><span class="post-toc-text">UnsupportedClassVersionError: has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version (..)up to 52.0</span></a></li></ol>
+        
+        <p>First of All, 这是基本功。相当于想要学习微积分，第一步是学会数数。很久以来，我都算不明白1 +1 。终于算出来了！！！</p>
+<ul>
+<li><h5 id="java-程序包org-springframework-boot不存在的解决方法"><a href="#java-程序包org-springframework-boot不存在的解决方法" class="headerlink" title="java: 程序包org.springframework.boot不存在的解决方法"></a>java: 程序包org.springframework.boot不存在的解决方法</h5>原因是idea配置的maven加载不到autoconfigure，将Delegate打钩(将IDE构建&#x2F;运行操作委托给Maven)</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251123382.png" alt="2a70396b34c7e41a5b00398318033c85"></p>
+<ul>
+<li><h5 id="idea创建springboot项目，Application-java不能运行问题的解决"><a href="#idea创建springboot项目，Application-java不能运行问题的解决" class="headerlink" title="idea创建springboot项目，Application.java不能运行问题的解决"></a>idea创建springboot项目，Application.java不能运行问题的解决</h5><ol>
+<li><p>项目配置SDK</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251133676.png"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251133677.png"></p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251133678.png"></p>
+</li>
+<li><p>MAVEN导入失误</p>
+<p>打开Application.java类可以看到，好多包都没有导入成功，此时我们肯定会想到重新导入jar包，我也尝试了，但是失败了。原因很简单，切换项目后我的maven配置回到了原始配置，导致的我的本地仓库不正确，所以导入不了需要的jar包。需要重新配置maven的本地仓库，配置结束后，clean &amp; compile。</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251138252.png"></p>
+</li>
+</ol>
+<p>		</p>
+</li>
+<li><h5 id="IDEA运行run为灰色"><a href="#IDEA运行run为灰色" class="headerlink" title="IDEA运行run为灰色"></a>IDEA运行run为灰色</h5></li>
+</ul>
+<p>hexo  一般来说，创建结束Application可以自动运行，如果遇到的话首先考虑配置SDK等问题。其次再做如下操作</p>
+<p>  <img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251414823.png"></p>
+<ul>
+<li><h5 id="Failed-to-execute-goal-org-apache-maven-plugins-maven-compiler-plugin-3-1-compile"><a href="#Failed-to-execute-goal-org-apache-maven-plugins-maven-compiler-plugin-3-1-compile" class="headerlink" title="Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile"></a>Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile</h5><ol>
+<li><p>项目的pom文件</p>
+<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251419286.png" />
+</li>
+<li><p>Settings和项目各方面对应起来</p>
+<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251419288.png" style="zoom:80%;" /></li>
+</ol>
+</li>
+<li><h5 id="mvn无效的标记：–release"><a href="#mvn无效的标记：–release" class="headerlink" title="mvn无效的标记：–release"></a>mvn无效的标记：–release</h5><p> 问题是因为spring的版本不对，删掉一行即可</p>
+<p>  <img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251425704.png"></p>
+</li>
+<li><h5 id="Error-java-Compilation-failed-internal-java-compiler-error-的解决方案"><a href="#Error-java-Compilation-failed-internal-java-compiler-error-的解决方案" class="headerlink" title="Error:java: Compilation failed: internal java compiler error 的解决方案"></a>Error:java: Compilation failed: internal java compiler error 的解决方案</h5><p>  该问题，一般在导入项目时会遇到。解决思路是查看项目的JDK和IDEA的配置是否一致。</p>
+<ol>
+<li><p>File –&gt; Project Structure –&gt; Project Settings –&gt; Modules 或 使用快捷键 Ctrl + Alt + shift + S打开项目的 		JDK配置	<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251133676.png"></p>
+</li>
+<li><p>File –&gt; Settings –&gt; Build, Execution, Deployment –&gt; Compiler –&gt; Java Compiler或 使用快捷键Ctrl + Alt + S打开配置，点击 Java Compiler查看如图所示（Target bytecode version）目标版本：查看此处JDK版本。</p>
+<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251419288.png" style="zoom:80%;" /></li>
+</ol>
+</li>
+<li><h5 id="UnsupportedClassVersionError-has-been-compiled-by-a-more-recent-version-of-the-Java-Runtime-class-file-version-55-0-this-version-up-to-52-0"><a href="#UnsupportedClassVersionError-has-been-compiled-by-a-more-recent-version-of-the-Java-Runtime-class-file-version-55-0-this-version-up-to-52-0" class="headerlink" title="UnsupportedClassVersionError: has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version (..)up to 52.0"></a>UnsupportedClassVersionError: has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version (..)up to 52.0</h5></li>
+</ul>
+<p>这是查找过程最长的bug了。这句话的意思是该项目已经被JRE 55 （即Java 17）编译了，现在的版本只到		Java 8。当时我一直以为是JDK 不一致的原因，在各个地方对应着查找，是否哪个地方应该配置为Java 8。利		用对照的方法改了一遍，发现没有卵用。想起在创建项目的时候，选择了一个SpringBoot的版本，即3.0.0		以上的。于是，我把原项目delete，重新建了一个项目，这次选择的是2.7.x版本结果是这样的。<img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251441190.png" style="zoom:67%;" /></p>
+<p>那为什么我上面不成功呢？我上网搜了一下，</p>
+<p><img src="https://raw.githubusercontent.com/wenjinglee1104/blog_file/master/image/202307251447252.jpg"></p>
+<p>至此，SpringBoot建立项目的坑基本完全踩完，并且还更新了一次IDEA（2020版本太多bug了），没有坑的建立过程很简单。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uB4y1a7XZ/?spm_id_from=333.337.search-card.all.click&vd_source=4f23d28e05c99250603fb8be165d6b83">https://www.bilibili.com/video/BV1uB4y1a7XZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4f23d28e05c99250603fb8be165d6b83</a></p>
+
+    </div>
+
+    <div class="post-meta">
+        <i>
+        
+            <span>2023-07-20</span>
+            
+                <span>该篇文章被 LiWenjing</span>
+            
+            
+                <span>打上标签:
+                    
+                    
+                        <a href='/tags/Tech/'>
+                            Tech
+                        </a>
+                    
+                </span>
+             
+             
+        
+        </i>
+    </div>
+    
+        
+
+     
+</div>
+
+
+
+                    
+                    
+                    <div class="footer">
+    
+        <span> 
+            © 1949-2023 China 
+
+            
+                
+
+            
+        </span>
+    
+</div>
+<!--这是指一条线往下的内容-->
+<div class="footer-last">
+    
+            <span>🌊一百年后没有你也没有我🌊</span>
+            
+                <span class="footer-last-span-right"><i>本站由<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">Hexo</a>驱动｜使用<a target="_blank" rel="noopener" href="https://github.com/HiNinoJay/hexo-theme-A4">Hexo-theme-A4</a>主题</i></span>
+            
+    
+</div>
+
+
+    
+        
+<link rel="stylesheet" href="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/css/a11y-dark.min.css">
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlight.min.js"></script>
+
+        
+<script src="https://jsd.onmicrosoft.cn/npm/hexo-theme-a4@latest/source/js/highlightjs-line-numbers.js"></script>
+
+    
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+                </div>
+            
+    </body>
+</html>
